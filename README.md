@@ -1,22 +1,6 @@
-# Simple IRC Client for ZX-Uno
+# Simple IRC Client for ZX Spectrum Next
 
-This is client works only on zx-uno and compatible computers with UART-core and WiFi shield.
-
-## Requirements
-
- * ZX-Uno with UART core active
- * WiFi shield attached to ZX-Uno
- * WiFi settings stored via [iwconfig](https://github.com/nihirash/iwconfig)
-
-## Usage
-
-Just run tap-file and application starts and in dialog mode ask all necessary data.
-
-If you have issue with dialing to IRC-server try use [esprst](http://www.zxuno.com/forum/viewtopic.php?f=39&t=2898#p26066) tool.
-
-After using this software you may require use esprst or power down and power up your zx-uno.
-
-For sending IRC commands used symbol '!' but not '/'. Cause it simpler to type from rubber keyboard.
+This is client works only on ZX Spectrum Next.
 
 There some shortcuts:
 
