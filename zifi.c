@@ -218,6 +218,11 @@ uartRead:
     IN   A,(C)
     BIT  0,A
     jr z,nejsou_data   ;pokud nejsou data, skonci
+
+    ld a, 0
+    ld (poked_byte), a
+    ld (is_recv), a
+
     LD   BC,RX
 
     IN   A,(C)
@@ -226,22 +231,6 @@ uartRead:
 nejsou_data:
     ld b,0
     ret    
-
-
-retReadByte:
-    ld a, 0
-    ld (poked_byte), a
-    ld (is_recv), a
-
-    ld bc, ZXUNO_ADDR
-    ld a, UART_DATA_REG
-    out (c), a
-
-    ld bc, ZXUNO_REG
-    in a, (c)
-
-    ld b, 1
-    ret
 
 recvRet:
     ld bc, ZXUNO_ADDR

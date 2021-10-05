@@ -332,7 +332,7 @@ void main()
     setColour ( '7' );
     readHostData();
     readUserData();
-    initWifi();
+    //initWifi();
     openTcp(host, port);
     myPutS("Connected!");
     recv();
