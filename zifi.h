@@ -8,6 +8,9 @@
 #define ZXUNO_ADDR 0xFC3B
 #define ZXUNO_REG 0xFD3B
 
+#define TX 0x133B
+#define RX 0x143B
+
 // ESX API
 #define ESX_GETSETDRV 0x89
 #define ESX_FOPEN 0x9A

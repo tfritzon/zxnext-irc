@@ -321,11 +321,11 @@ void main()
 
     setColour( '5' );
     
-    myPutS("Simple IRC Client for ZX-UNO v. 0.3");
+    myPutS("Simple IRC Client for ZX-Next v. 0.3");
     setColour( '3' );
     
-    myPutS("(c) 2019 Nihirash");
-    myPutS("Some parts based on Simple Irc Client(suckless software)");
+    myPutS("(c) 2021 Shrek/MB Maniax");
+    myPutS("It's fork IRC client by Nihirash");
     myPutS("This software is Public Domain.");
     myPutS("Use it for the good of all beings");
     myPutS("");

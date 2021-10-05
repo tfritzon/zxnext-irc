@@ -29,7 +29,7 @@ void closed_callback()
 
 void checkNoWiFiConfig()
 {
-    for (;&ssid[0] == 0;) {
+  /*  for (;&ssid[0] == 0;) {
         printf("Wifi SSID:");
         cgets(&ssid);
         if (&ssid[0]) {
@@ -37,6 +37,7 @@ void checkNoWiFiConfig()
             cgets(&wpass);
         }
     }
+    */
 }
 
 
@@ -146,30 +147,19 @@ urb:
 ; Write single byte to UART
 ; A - byte to write
 ; BC will be wasted
+SEND:
 uartWriteByte:
-    push af
-    ld bc, ZXUNO_ADDR
-    ld a, UART_STAT_REG
-    out (c), a
+         push af
+         LD   BC,TX
+AS:
+         IN   A,(C)
+         BIT  1,A
+         JR   NZ,AS
 
-waitWriteReady:
-    ld bc, ZXUNO_REG 
-    in A, (c)
-    and UART_BYTE_RECIVED
-    jr nz,  is_recvF
-checkSent:
-    ld bc, ZXUNO_REG 
-    in A, (c)
-    and UART_BYTE_SENT
-    jr nz, checkSent
+         pop af
+         OUT  (C),A
+         ret
 
-    ld bc, ZXUNO_ADDR
-    ld a, UART_DATA_REG
-    out (c), a
-    ld bc, ZXUNO_REG
-    pop af
-    out (c), a
-    ret
 is_recvF:
     push af
     push hl
@@ -178,7 +168,8 @@ is_recvF:
     ld (hl), a
     pop hl
     pop af
-    jr checkSent
+    ret
+    ;jr checkSent
 
 ; Is data avail in UART
 ; NZ - Data Presents
@@ -221,26 +212,21 @@ noneData:
 ; B:
 ;     1 - Was read
 ;     0 - Nothing to read
+READ:
 uartRead:
-    ld a, (poked_byte)
-    and 1
-    jr nz, retBuff
+    LD   BC,TX
+    IN   A,(C)
+    BIT  0,A
+    jr z,nejsou_data   ;pokud nejsou data, skonci
+    LD   BC,RX
 
-    ld a, (is_recv)
-    and 1
-    jr nz, recvRet
-
-    ld bc, ZXUNO_ADDR
-    ld a, UART_STAT_REG
-    out (c), a
-    
-    ld bc, ZXUNO_REG 
-    in a, (c)
-    and UART_BYTE_RECIVED
-    jr nz, retReadByte
-
-    ld b, 0
+    IN   A,(C)
+    ld b,1
     ret
+nejsou_data:
+    ld b,0
+    ret    
+
 
 retReadByte:
     ld a, 0
@@ -398,7 +384,7 @@ rstLp:
     ld hl, cmd_cwjap3
     call okErrCmd
     and 1
-    jp z, _errConnect
+    ;jp z, _errConnect
     
     ret
 
