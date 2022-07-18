@@ -286,7 +286,7 @@ static void iRoutine()
     if (iPos > 62) i = iPos - 62;
 
     c = getk();
-    printf(">%s_                %d", &iBuff[i], c);
+    printf(">%s_", &iBuff[i], c);
     
     if (c >= 32) iBuff[iPos ++] = c;
     if (c == 12) {
