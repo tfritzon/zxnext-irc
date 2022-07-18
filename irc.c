@@ -265,11 +265,11 @@ static void bar()
     setColour( '7' );
     printf("Current stream: %s", channel);
     __asm
-        ld hl, #0x5AC0
-        ld a, #0x0F
+        ld hl, 0x5AC0
+        ld a, 0x0F
         ld (hl), a
-        ld de, #0x5AC1
-        ld bc, #31
+        ld de, 0x5AC1
+        ld bc, 31
         ldir
     __endasm;
 }
@@ -286,7 +286,7 @@ static void iRoutine()
     if (iPos > 62) i = iPos - 62;
 
     c = getk();
-    printf(">%s_", &iBuff[i], c);
+    printf(">%s_                %d", &iBuff[i], c);
     
     if (c >= 32) iBuff[iPos ++] = c;
     if (c == 12) {
@@ -295,7 +295,7 @@ static void iRoutine()
 
         iPos --;
     }
-    if (c == 13) { 
+    if (c == 10) { 
         cleanIRow();
         iPos = 0;
         parseIn();
@@ -334,7 +334,6 @@ void main()
     readUserData();
     //initWifi();
     openTcp(host, port);
-    myPutS("Connected!");
     recv();
     parseSrv(recvBuff);
     connect();

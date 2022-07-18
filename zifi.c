@@ -8,7 +8,6 @@ void initWifi()
     __endasm;
 }
 
-
 void errInit()
 {
   cprintf("Cannot init Wifi!");
@@ -261,7 +260,7 @@ retBuff:
 ;  A - current drive
 getDefaultDrive:
     ld a, 0
-    rst #8
+    rst 8
     defb ESX_GETSETDRV
     ret
 
@@ -276,13 +275,13 @@ fopen:
     call getDefaultDrive
     pop ix
     pop bc
-    rst #8
+    rst 8
     defb ESX_FOPEN
     ret
 
 ; A - file stream id
 fclose:
-    rst #8
+    rst 8
     defb ESX_FCLOSE
     ret
 
@@ -294,7 +293,7 @@ fclose:
 fread:
     push hl
     pop ix
-    rst #8
+    rst 8
     defb ESX_FREAD
     ret
 
@@ -306,13 +305,13 @@ fread:
 fwrite:
     push hl
     pop ix
-    rst #8
+    rst 8
     defb ESX_FWRITE
     ret
     
 ; A - file stream id
 fsync:
-    rst #8
+    rst 8
     defb ESX_FSYNC
     ret
 
@@ -383,7 +382,7 @@ rstLp:
 ; A:
 ;    1 - Success
 ;    0 - Failed
-okErrCmd: 
+okErrCmd:
     call uartWriteStringZ
 okErrCmdLp:
     call uartReadBlocking
@@ -429,7 +428,9 @@ startTcp:
     call uartWriteStringZ
     ld hl, cmd_open3
     call okErrCmd
-
+    ld hl, cmd_cipmode
+    call okErrCmd
+    
     ld hl, cmd_send_begin
     call okErrCmd
 
